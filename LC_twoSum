@@ -1,0 +1,14 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        int i = 0;
+        unordered_map<int, int> record;
+        while(1){
+            if(record[target - nums[i]] > 0){
+                return vector<int>({record[target-nums[i]]-1, i});
+            }
+            record[nums[i]] = i + 1;
+            i++;
+        }
+    }
+};
