@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        int n = needle.length(), h = haystack.length(), space = h - n;
+        if(n == 0){
+            return 0;
+        } else if (space < 0){
+            return -1;
+        }
+        for(int i = 0; i <= space; i++){
+            if(haystack[i] == needle[0]){
+                if(haystack.substr(i, n) == needle){
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+};
