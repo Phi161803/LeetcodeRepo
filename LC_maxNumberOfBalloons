@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int maxNumberOfBalloons(string text) {
+        vector<int> letterct ('z' + 1, 0);
+        char* textend = &text[text.size()];
+        char* charhere = &text[0];
+        while(charhere < textend){
+            letterct[*charhere++]++;
+        }
+        int max = letterct['a'];
+        if(letterct['b'] < max) max = letterct['b'];
+        if(letterct['n'] < max) max = letterct['n'];
+        if(letterct['l'] < 2*max) max = letterct['l']/2;
+        if(letterct['o'] < 2*max) max = letterct['o']/2;
+        return max;
+    }
+};
