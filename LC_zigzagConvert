@@ -1,0 +1,31 @@
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        if(numRows == 1) return s;
+        int numCycle = 2 * (numRows - 1);
+        int sleng = s.size();
+        int place, jump1, jump2;
+        stringstream outss;
+        for(int i = 0; i < numRows; i++){
+            place = i;
+            if(i == 0 || i == numRows - 1){ // first and last rows
+                while(place < sleng){
+                    outss << s[place];
+                    place += numCycle;
+                }
+            }
+            else{
+                jump2 = 2 * i;
+                jump1 = numCycle - jump2;
+                while(place < sleng){
+                    outss << s[place];
+                    place += jump1;
+                    if(place >= sleng) break;
+                    outss << s[place];
+                    place += jump2;
+                }
+            }
+        }
+        return outss.str();
+    }
+};
