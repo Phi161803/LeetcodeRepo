@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int lowest = prices[0];
+        int best = 0;
+        int plist = prices.size();
+        for(int i = 0; i < plist; i++){
+            if(prices[i] < lowest) lowest = prices[i];
+            if(prices[i] - lowest > best) best = prices[i] - lowest;
+        }
+        return best;
+    }
+};
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int best = 0;
+        int lowest = prices[0];
+        for(vector<int>::iterator p_it = prices.begin(), end = prices.end(); p_it < end; p_it++){
+            if(*p_it < lowest) lowest = *p_it;
+            else if(*p_it - lowest > best) best = *p_it - lowest;
+        }
+        return best;
+    }
+};
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int lowest = prices[0];
+        int best = 0;
+        int plist = prices.size();
+        int* marker = &prices[0];
+        int* end = &prices[plist-1];
+        for(; marker <= end; marker++){
+            if(*marker < lowest) lowest = *marker;
+            if(*marker - lowest > best) best = *marker - lowest;
+        }
+        return best;
+    }
+};
