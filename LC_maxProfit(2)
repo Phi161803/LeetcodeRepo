@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int sum = 0, diff;
+        vector<int>::iterator next = prices.begin();
+        vector<int>::iterator here = next++;
+        for(int i = 0, end = prices.size() - 1; i != end; i++){
+            diff = *next++ - *here++;
+            if(diff > 0) sum += diff;
+        }
+        return sum;
+    }
+};
