@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int candy(vector<int>& ratings) {
+        int candyCount = ratings.size(), upcount = 0, downcount = 0, check;
+        for(int i = 0, i_end = ratings.size() - 1; i != i_end; i++){
+            check = ratings[i] - ratings[i+1];
+            if(check > 0){ // descending
+                downcount++;
+            } else if(check < 0){ // ascending
+                if(downcount){ // descended, then ascended; calc the entire peak
+                    candyCount +=   ((upcount + 1) * (upcount) / 2) +
+                                    ((downcount + 1) * (downcount) / 2) -
+                                    (upcount < downcount ? upcount : downcount);
+                    upcount = downcount = 0;
+                }
+                upcount++;
+            } else{ // same rating
+                if(downcount){ // descended, then leveled out; calc the entire peak
+                    candyCount +=   ((upcount + 1) * (upcount) / 2) +
+                                    ((downcount + 1) * (downcount) / 2) -
+                                    (upcount < downcount ? upcount : downcount);
+                    upcount = downcount = 0;
+                } else if(upcount){ // ascended, then leveled out; calc the ascent
+                    candyCount += (upcount + 1) * (upcount) / 2;
+                    upcount = 0;
+                }
+            }
+        }
+        if(downcount){ // descended, then ended; calc the entire peak
+            candyCount +=   ((upcount + 1) * (upcount) / 2) +
+                            ((downcount + 1) * (downcount) / 2) -
+                            (upcount < downcount ? upcount : downcount);
+        } else if(upcount){ // ascended, then ended; calc the ascent
+                    candyCount += (upcount + 1) * (upcount) / 2;
+        }
+        return candyCount;
+    }
+};
