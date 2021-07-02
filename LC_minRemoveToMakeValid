@@ -1,0 +1,33 @@
+class Solution {
+public:
+    string minRemoveToMakeValid(string s) {
+        int opened = 0;
+        char* here = &s[0];
+        vector<char*> opens;
+        for(char* c = &s[0], *end = &s[s.size()]; c != end; c++){ // skim through, delete )s
+            if(*c == '('){
+                opened++;
+                opens.push_back(c); // location of (s
+            }
+            else if(*c == ')'){
+                if(opened){
+                    opened--;
+                    opens.pop_back(); // only keep unpaired (s
+                }
+                else *c = ' ';
+            }
+        }
+        if(opened){ // delete unpaired (s
+            for(int i = 0, end = opens.size(); i != end; i++){
+                *opens[i] = ' ';
+            }
+        }
+        char *to;
+        for(char *from = to = &s[0], *end = &s[s.size()]; from < end; from++){ // remove placeholders
+            if(to < from) *to = *from;
+            if(*to != ' ') to++;
+        }
+        s.resize(to - &s[0]);
+        return s;
+    }
+};
