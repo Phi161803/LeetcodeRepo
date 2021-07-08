@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int nearestValidPoint(int x, int y, vector<vector<int>>& points) {
+        int dist = 100000;
+        vector<vector<int>>::iterator answer = points.begin() - 1;
+        for(vector<vector<int>>::iterator it = points.begin(), it_end = points.end();
+           it != it_end;
+           it++){
+            int xx = (*it)[0], yy = (*it)[1];
+            if(xx == x && abs(yy - y) < dist){
+                dist = abs(yy - y);
+                answer = it;
+            } else if(yy == y && abs(xx - x) < dist){
+                dist = abs(xx - x);
+                answer = it;
+            }
+        }
+        return answer - points.begin();
+    }
+};
