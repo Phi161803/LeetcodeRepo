@@ -1,0 +1,26 @@
+class Solution {
+public:
+    static int v_calc(vector<int> &a){
+        return pow(a[0], 2) + pow(a[1], 2);
+    }
+    static bool v_s(vector<int> &a, vector<int> &b){
+        return v_calc(a) < v_calc(b);
+    }
+    static bool i_s(int a, vector<int> &b){
+        return a < v_calc(b);
+    }
+    vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
+        if(k == points.size()) return points;
+        nth_element(points.begin(), points.begin()+k, points.end(), v_s);
+        int highest = v_calc(points[k]);
+        for(vector<vector<int>>::iterator to = points.begin(), from = points.begin()+k, end = points.begin()+k; to != end; to++){
+            if(i_s(highest, *to)){
+                while(!i_s(highest, *from)) from++;
+                to->swap(*from);
+            }
+            //to advances until higher than k, from advances until lower than k, swap, repeat
+        }
+        points.resize(k);
+        return points;
+    }
+};
