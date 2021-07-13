@@ -1,0 +1,18 @@
+class Solution {
+public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        vector<int> result;
+        result.reserve(nums1.size());
+        vector<int> hold(1001, 0);
+        for(int i: nums1){
+            hold[i]++;
+        }
+        for(int i: nums2){
+            if(hold[i]){
+                hold[i] = 0;
+                result.push_back(i);
+            }
+        }
+        return result;
+    }
+};
