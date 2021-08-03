@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int numJewelsInStones(string jewels, string stones) {
+        bool holder[64] = {};
+        for(auto c: jewels){
+            holder[c&63] = true;
+        }
+        int counter = 0;
+        for(auto c: stones){
+            if(holder[c&63])counter++;
+        }
+        return counter;
+    }
+};
